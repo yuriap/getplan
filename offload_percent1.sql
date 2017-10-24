@@ -70,24 +70,3 @@ select inst_id,offloaded + not_offloaded total, offloaded, lpad(to_char(round(10
                          where sql_id = '&1.')) group by inst_id)
 order by 1
 ;
-
-select --sql_id,
-       inst_id,
-       child_number child,
-       plan_hash_value plan_hash,
-       executions execs,
-       (elapsed_time / 1000000) / decode(nvl(executions, 0), 0, 1, executions) /
-       decode(px_servers_executions, 0, 1, px_servers_executions / decode(nvl(executions, 0), 0, 1, executions)) avg_etime,
-       px_servers_executions / decode(nvl(executions, 0), 0, 1, executions) avg_px,
-       decode(IO_CELL_OFFLOAD_ELIGIBLE_BYTES, 0, 'No', 'Yes') Offload,
-       decode(IO_CELL_OFFLOAD_ELIGIBLE_BYTES,
-              0,
-              0,
-              100 * (IO_CELL_OFFLOAD_ELIGIBLE_BYTES - IO_INTERCONNECT_BYTES) / decode(IO_CELL_OFFLOAD_ELIGIBLE_BYTES, 0, 1, IO_CELL_OFFLOAD_ELIGIBLE_BYTES)) "IO_SAVED_%",
-       -- buffer_gets lio,
-       buffer_gets / decode(nvl(executions, 0), 0, 1, executions) avg_lio--,
-       --sql_text
-  from gv$sql s
- where sql_id = '&1.'
-order by 1
-;

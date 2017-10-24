@@ -1,5 +1,10 @@
 SQL execution plan analyzing pack
-Version 1.0
+Version 2.0
+
+History:
+--------
+Version 1.0 - baseline
+Version 2.0 - HTML reports for getplan and getllplan with "h" suffix
 
 1. ep.sql
 Explains plan for some query in a file:
@@ -31,17 +36,21 @@ Executes a query from a file and gathers sql runtime statistics as well as sessi
 
 @exs <filename>[.sql]
 
-7. getplan.sql
+7. getplan.sql getplanh.sql
 
 Gathers sql execution statistics for given SQL_ID
+File with "h" suffix creates HTML report
 
 @getplan <SQL_ID>
+@getplanh <SQL_ID>
 
-8. getllplan.sql
+8. getllplan.sql getllplanh.sql
 
 Gathers sql execution statistics for last executed sql query, takes FILE_NAME_PREFIX for naming the output file
+File with "h" suffix creates HTML report
 
 @getllplan <FILE_NAME_PREFIX>
+@getllplanh <FILE_NAME_PREFIX>
 
 9. prntbl.sql
 

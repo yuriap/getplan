@@ -1,20 +1,19 @@
 set pages 9999
-set lines 500
+set lines 2000
 set trimspool on
 set termout off
 set echo off
+set feedback off
 
 set verify off
 define SQLID=&1
-spool sqlid_&SQLID..txt
+spool sqlid_&SQLID..html
 
-@getplan_base
+@getplan_baseh
 
 spool off
 
-@recurs_sql getplan
-
-
+@recurs_sql getplanh
 
 undefine SQLID
 undefine 1

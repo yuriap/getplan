@@ -1,6 +1,4 @@
-alter session set nls_numeric_characters='. ';
 
-set serveroutput on
 declare
 l_on varchar2(512);
 procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
@@ -18,7 +16,6 @@ procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
     begin
         if p_num=0 then return '0'; end if;
         if p_stype in ('WAIT','TIME') then
-
             return
                 round(
                     p_num / power( p_base , trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) ), p_precision
@@ -32,9 +29,7 @@ procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
                        when p_grouplen*4 then 'Ms'
                        else '*'||p_base||'^'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )||' us'
                     end;
-
         else
-
             return
                 round(
                     p_num / power( p_base , trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) ), p_precision
@@ -50,14 +45,12 @@ procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
                        when p_grouplen*6 then 'E'
                        else '*'||p_base||'^'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )
                     end;
-
         end if;
-
     end; -- tptformat
 begin
   p(' ');
   p('DB: &_USER.@&_CONNECT_IDENTIFIER.');
-  for i in (select * from &2. where sql_id='&1.' order by inst_id) loop
+  for i in (select * from &VSQL. where sql_id='&1.' order by inst_id) loop
     p(' ');
     p('-------------------------------------------------------------------------------------------------');
     p('SQL_ID='||i.sql_id||'; CHILD_NUMBER='||i.child_number||'; PLAN HASH: '||i.PLAN_HASH_VALUE||'; Opt Env Hash: '||i.OPTIMIZER_ENV_HASH_VALUE||';'||' INST_ID: '||i.inst_id);
@@ -86,7 +79,6 @@ begin
 	if i.disk_reads>0 then p('Awg IO time: '||tptformat(i.user_io_wait_time/i.disk_reads,'TIME'));end if;
 	if i.buffer_gets>0 then p('CPU sec/1M LIO: '||tptformat(i.cpu_time/i.buffer_gets));end if;
     p('=================================================================================================');    
-	
     if i.executions>0 then 
       p('LIO/Exec, PIO/Exec, CPU/EXEC, ROWS/EXEC, ELA/EXEC: '||tptformat(round(i.buffer_gets/i.executions,3))||'; '||
 	                                                tptformat(round((i.disk_reads+i.DIRECT_WRITES)/i.executions,3))||'; '||
@@ -101,7 +93,6 @@ begin
     else
       p('LIO/Row, PIO/Row, CPU/Row, ELA/Row: '||tptformat(round(i.buffer_gets))||'; '||tptformat(round(i.disk_reads+i.DIRECT_WRITES))||'; '||tptformat(round(i.cpu_time),'TIME')||'; '||tptformat(round(i.elapsed_time),'TIME'));	
     end if;  
-
     $IF DBMS_DB_VERSION.version>=11 $THEN
 	  if i.IO_CELL_OFFLOAD_ELIGIBLE_BYTES>0 then
 	    p('=================================================================================================');
@@ -115,7 +106,4 @@ begin
 	  end if;
     $END 
   end loop;
-  
 end;
-/
-set serveroutput off

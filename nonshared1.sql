@@ -1,6 +1,6 @@
 rem https://timurakhmadeev.wordpress.com/2012/03/15/vsql-is_obsolete/
 select * from
-(select INST_ID, sql_id, nonshared_reason, count(*) from gv$sql_shared_cursor
+(select INST_ID, sql_id, nonshared_reason, count(*) "Count" from gv$sql_shared_cursor
 unpivot
 (nonshared_value for nonshared_reason in (
 UNBOUND_CURSOR as 'UNBOUND_CURSOR',

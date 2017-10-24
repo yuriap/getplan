@@ -17,8 +17,24 @@ column last_tempseg_size HEA 'LAST_TMP'
 
 BREAK on inst_id ON child_number on policy
 
-select inst_id,child_number,policy,operation_id,operation_type,
-estimated_optimal_size,estimated_onepass_size,last_memory_used,last_execution,last_degree,
-total_executions,optimal_executions,onepass_executions,multipasses_executions,active_time,max_tempseg_size,last_tempseg_size
- from gv$sql_workarea where sql_id='&1'
-order by  inst_id,child_number,operation_id;
+select inst_id,
+       child_number "CHLD#",
+       policy,
+       operation_id "OPER",
+       operation_type "OPERATION",
+       estimated_optimal_size "EST_OPTIM",
+       estimated_onepass_size "EST_ONEPA",
+       last_memory_used "MEM_USED",
+       last_execution "LST_EXE",
+       last_degree "LST_DEGREE",
+       total_executions "TOT_EXE",
+       optimal_executions "OPT_EXE",
+       onepass_executions "ONEP_EXE",
+       multipasses_executions "MULT_EXE",
+       active_time "ACTIVE_TIM",
+       max_tempseg_size "MAX_TMP",
+       last_tempseg_size "LAST_TMP"
+  from gv$sql_workarea
+ where sql_id = '&1'
+ order by inst_id, child_number, operation_id;
+

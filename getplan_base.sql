@@ -6,11 +6,19 @@ prompt ====================================== NON SHARED REASON ================
 @nonshared1 &SQLID
 select banner from v$version where banner like 'Oracle Database%';
 prompt ===================================== RUNTIME STAT FROM V$SQL ===================================
-@vsql_stat.sql &SQLID gv$sql
+define VSQL=gv$sql
+alter session set nls_numeric_characters='. ';
+set serveroutput on
+@vsql_stat.sql &SQLID
+/
+set serveroutput off
 prompt ============================================= Exadata Statistics ================================
 @offload_percent &SQLID
 prompt ======================================== SQL MONITOR(11g+) ======================================
+set serveroutput on
 @sqlmon1 &SQLID
+/
+set serveroutput off
 prompt =============================================== SQL WorkArea ====================================
 @sqlwarea &SQLID
 prompt ================================================== CBO Env ======================================
@@ -26,13 +34,9 @@ select * from table(dbms_xplan.display_cursor('&SQLID', null, 'ALL ALLSTATS +pee
 prompt ====================================== DISPLAY_CURSOR (Adaptive) ================================
 SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive LAST ALLSTATS +peeked_binds'));
 SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive ALL ALLSTATS +peeked_binds'));
-rem prompt ============================================ Flat plan ==========================================
-rem @flat_plan.sql &SQLID 0
-rem @flat_plan.sql &SQLID 1
-rem @flat_plan.sql &SQLID 2
-rem @flat_plan.sql &SQLID 3
-rem @flat_plan.sql &SQLID 4
-rem @flat_plan.sql &SQLID 5
 prompt ===================================== SQL MONITOR Hist(12c+) ====================================
+set serveroutput on
 @sqlmon_hist
+/
+set serveroutput off
 set timing on
