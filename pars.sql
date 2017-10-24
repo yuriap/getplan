@@ -1,0 +1,1 @@
+prompt No file pars.sql exists in current directory
