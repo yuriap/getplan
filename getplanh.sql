@@ -9,11 +9,11 @@ set verify off
 define SQLID=&1
 spool sqlid_&SQLID..html
 
-@getplan_baseh
+@_getplan_baseh
 
 spool off
 
-@recurs_sql getplanh
+@_recurs_sql getplanh
 
 undefine SQLID
 undefine 1

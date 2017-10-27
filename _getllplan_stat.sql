@@ -23,9 +23,9 @@ set verify off
 --define SQLID=&1
 spool &envr2._&filename
 
-@getplan_base
-@pq_state
-@recurs_sql
+@_getplan_base
+@__pq_state
+@_recurs_sql
 
 spool off
 

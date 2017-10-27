@@ -17,11 +17,11 @@ select rtrim(decode('&envr.', '', 'na_','&envr.'),'_') envr1 from dual;
 --define SQLID=&1
 spool &envr2._&filename
 prompt Environment &envr2.
-@getplan_base
+@_getplan_base
 
 spool off
 
-@recurs_sql getplan
+@_recurs_sql getplan
 
 undefine SQLID
 undefine 1

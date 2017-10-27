@@ -8,11 +8,11 @@ set verify off
 define SQLID=&1
 spool sqlid_&SQLID..txt
 
-@getplan_base
+@_getplan_base
 
 spool off
 
-@recurs_sql getplan
+@_recurs_sql getplan
 
 
 
