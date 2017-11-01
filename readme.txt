@@ -1,11 +1,12 @@
 SQL execution plan analyzing pack
-Version 2.1
+Version 2.2
 
 History:
 --------
 Version 1.0 - baseline
 Version 2.0 - HTML reports for getplan and getllplan with "h" suffix
 Version 2.1 - Refactoring
+Version 2.2 - Bug fixing
 
 1. ep.sql
 Explains plan for some query in a file:

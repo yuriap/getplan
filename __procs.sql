@@ -55,7 +55,8 @@ procedure print_table_html(p_query in varchar2,
                            p_search varchar2 default null, 
                            p_replacement varchar2 default null, 
                            p_style1 varchar2 default 'awrc1', 
-                           p_style2  varchar2 default 'awrnc1') is
+                           p_style2  varchar2 default 'awrnc1',
+                           p_header number default 0) is
   l_theCursor   integer default dbms_sql.open_cursor;
   l_columnValue varchar2(32767);
   l_status      integer;
@@ -102,6 +103,15 @@ begin
       end if;
     end loop;
     p(HTF.TABLEROWCLOSE);
+    if p_header > 0 then
+      if mod(l_rn,p_header)=0 then
+        p(HTF.TABLEROWOPEN);
+        for i in 1 .. l_colCnt loop
+          p(HTF.TABLEHEADER(cvalue=>l_descTbl(i).col_name,calign=>'left',cattributes=>'class="awrbg" scope="col"'));
+        end loop;
+        p(HTF.TABLEROWCLOSE);
+      end if;
+    end if;
   end loop;
   dbms_sql.close_cursor(l_theCursor);
   p(HTF.TABLECLOSE);
@@ -119,14 +129,14 @@ begin
   loop
     l_eof:=instr(l_text,chr(10));
     p(HTF.TABLEROWOPEN);
-	l_line:=substr(l_text,1,l_eof);
-	if p_search is not null and regexp_instr(l_line,p_search)>0 then
-	  l_line:=REGEXP_REPLACE(l_line,p_search,p_replacement);
-	  p(HTF.TABLEDATA(cvalue=>l_line,calign=>'left',cattributes=>'class="'|| case when mod(l_iter,2)=0 then 'awrc1' else 'awrnc1' end ||'"'));
-	else
-	  p(HTF.TABLEDATA(cvalue=>replace(l_line,' ','&nbsp;'),calign=>'left',cattributes=>'class="'|| case when mod(l_iter,2)=0 then 'awrc1' else 'awrnc1' end ||'"'));
-	end if;
-	p(HTF.TABLEROWCLOSE);
+    l_line:=substr(l_text,1,l_eof);
+    if p_search is not null and regexp_instr(l_line,p_search)>0 then
+      l_line:=REGEXP_REPLACE(l_line,p_search,p_replacement);
+      p(HTF.TABLEDATA(cvalue=>l_line,calign=>'left',cattributes=>'class="'|| case when mod(l_iter,2)=0 then 'awrc1' else 'awrnc1' end ||'"'));
+    else
+      p(HTF.TABLEDATA(cvalue=>replace(l_line,' ','&nbsp;'),calign=>'left',cattributes=>'class="'|| case when mod(l_iter,2)=0 then 'awrc1' else 'awrnc1' end ||'"'));
+    end if;
+    p(HTF.TABLEROWCLOSE);
     l_text:=substr(l_text,l_eof+1);  l_iter:=l_iter+1;
     exit when l_iter>1000 or dbms_lob.getlength(l_text)=0;
   end loop;

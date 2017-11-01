@@ -1,21 +1,15 @@
-column CHILD_NUMBER format 999 HEA 'CHLD#'
+column CHLD# format 999
 column POLICY format a10
-column OPERATION_ID format 999 HEA 'OPER'
-column OPERATION_TYPE format a30 word_wrap HEA 'OPERATION'
-column estimated_optimal_size HEA 'EST_OPTIM'
-column estimated_onepass_size HEA 'EST_ONEPA'
-column last_memory_used HEA 'MEM_USED'
-column last_execution format a10 HEA 'LST_EXE'
-column last_degree format 999 HEA 'LST_DEGREE'
-column total_executions format 999g999g999 HEA 'TOT_EXE'
-column optimal_executions format 999g999g999 HEA 'OPT_EXE'
-column onepass_executions format 999g999g999 HEA 'ONEP_EXE'
-column multipasses_executions format 999g999g999 HEA 'MULT_EXE'
-column active_time HEA 'ACTIVE_TIM'
-column max_tempseg_size HEA 'MAX_TMP'
-column last_tempseg_size HEA 'LAST_TMP'
+column OPER format 999
+column OPERATION format a30 word_wrap
+column LST_EXE format a10
+column LST_DEGREE format 999
+column TOT_EXE format 999g999g999
+column OPT_EXE format 999g999g999
+column ONEP_EXE format 999g999g999
+column MULT_EXE format 999g999g999
 
-BREAK on inst_id ON child_number on policy
+BREAK on inst_id ON CHLD# on policy
 
 select inst_id,
        child_number "CHLD#",

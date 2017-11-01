@@ -1,32 +1,33 @@
 set timing off
 set heading on
 prompt ========================================= FULL SQL TEXT =========================================
-@getftxt &SQLID
+@__getftxt &SQLID
 prompt ====================================== NON SHARED REASON ========================================
-@nonshared1 &SQLID
+@__nonshared1 &SQLID
 select banner from v$version where banner like 'Oracle Database%';
 prompt ===================================== RUNTIME STAT FROM V$SQL ===================================
 define VSQL=gv$sql
 alter session set nls_numeric_characters='. ';
 set serveroutput on
-@vsql_stat.sql &SQLID
+@__vsql_stat.sql &SQLID
 /
 set serveroutput off
 prompt ============================================= Exadata Statistics ================================
-@offload_percent &SQLID
+@__offload_percent1 &SQLID
+@__offload_percent2 &SQLID
 prompt ======================================== SQL MONITOR(11g+) ======================================
 set serveroutput on
-@sqlmon1 &SQLID
+@__sqlmon1 &SQLID
 /
 set serveroutput off
 prompt =============================================== SQL WorkArea ====================================
-@sqlwarea &SQLID
+@__sqlwarea &SQLID
 prompt ================================================== CBO Env ======================================
-@optenv &SQLID
+@__optenv &SQLID
 prompt ====================================== DISPLAY_CURSOR (LAST) ====================================
 select * from table(dbms_xplan.display_cursor('&SQLID', null, 'LAST ALLSTATS +peeked_binds'));
 prompt ====================================== DISPLAY_CURSOR (RAC)  ====================================
-@rac_plans
+@__rac_plans
 prompt ====================================== DISPLAY_CURSOR (LAST ADVANCED) ===========================
 select * from table(dbms_xplan.display_cursor('&SQLID', null, 'LAST ADVANCED'));
 prompt ====================================== DISPLAY_CURSOR (ALL) =====================================
@@ -36,7 +37,7 @@ SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptiv
 SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive ALL ALLSTATS +peeked_binds'));
 prompt ===================================== SQL MONITOR Hist(12c+) ====================================
 set serveroutput on
-@sqlmon_hist
+@__sqlmon_hist
 /
 set serveroutput off
 set timing on

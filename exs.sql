@@ -7,4 +7,4 @@ spool &envr.&1..res.txt
 spool off
 set termout on
 prompt Finished...
-@getllplan_stat &1.
+@_getllplan_stat &1.
