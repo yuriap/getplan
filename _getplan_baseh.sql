@@ -7,6 +7,8 @@ declare
   l_sql clob;
   l_plsql_output clob;
 
+  l_crsr sys_refcursor;
+  
   l_css clob:=
 q'{
 @@awr.css
@@ -100,7 +102,13 @@ begin
    p(HTF.header (3,cheader=>HTF.ANCHOR (curl=>'',ctext=>'SQL text',cname=>'sql_text',cattributes=>'class="awr"'),cattributes=>'class="awr"'));
    p(HTF.BR);
    prepare_script(l_getftxt,'~SQLID');
-   print_table_html(l_getftxt,1000,'Full sql text');
+   open l_crsr for l_getftxt;
+   fetch l_crsr into l_plsql_output;
+   close l_crsr;
+   
+   --print_table_html(l_getftxt,1000,'Full sql text');
+   print_text_as_table(p_text=>l_plsql_output,p_t_header=>'SQL text',p_width=>500);
+   
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
    p(HTF.BR);
@@ -121,6 +129,7 @@ begin
    p(HTF.BR);
    prepare_script(l_vsql_stat,'~SQLID', p_plsql=>true);
    l_vsql_stat:=replace(l_vsql_stat,'procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;','procedure p(msg varchar2) is begin :l_res:=:l_res||msg||chr(10);end;');
+   l_plsql_output:=null;
    execute immediate l_vsql_stat using in out l_plsql_output;
    l_plsql_output:=replace(replace(l_plsql_output,'&_USER.','~_USER.'),'&_CONNECT_IDENTIFIER.','~_CONNECT_IDENTIFIER.');
    

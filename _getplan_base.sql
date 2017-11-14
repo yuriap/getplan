@@ -39,5 +39,21 @@ prompt ===================================== SQL MONITOR Hist(12c+) ============
 set serveroutput on
 @__sqlmon_hist
 /
+
+prompt ===================================== Active ASH (SQL Monitor) ====================================
+BREAK ON plan_hash_value on SQL_EXEC_START skip 1 nodup on PL_OPERATION
+COMPUTE sum LABEL Total OF TIM ON SQL_EXEC_START
+
+column plan_hash_value format 999999999999
+column exec_id format 999999999
+column PL_OPERATION format a100
+column EVENT format a35
+column TIM format 999g999
+column TIM_PCT format 999d999
+column row_src format a35
+column START_TIM format a24
+column end_tim format a24
+
+@@__ash_p3
 set serveroutput off
 set timing on
