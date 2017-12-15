@@ -5,5 +5,5 @@ set termout off
 spool off
 set termout on
 prompt Finished...
-@getllplan &1.
+@getllplanh &1.
 rollback;
