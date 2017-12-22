@@ -37,7 +37,7 @@ select /*+qb_name(findq)*/ '@getplan'||decode(&hver.,1,'h',null)||' '||sql_id, t
    and sql_text not like '%qb_name(findq)%' 
    and sql_text not like 'explain plan%' 
    and '&fscope'='full'
-order by LAST_ACTIVE_TIME);   
+order by LAST_ACTIVE_TIME nulls first);   
 set verify on
 
 undefine 1

@@ -1,5 +1,5 @@
 set pages 9999
-set lines 500
+set lines 2000
 set trimspool on
 set termout off
 

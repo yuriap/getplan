@@ -204,7 +204,7 @@ begin
    p(HTF.BR);
    l_sql:=q'[select * from table(dbms_xplan.display_cursor('&SQLID', null, 'LAST ALLSTATS +peeked_binds'))]'||chr(10);
    prepare_script(l_sql,'~SQLID');
-   print_table_html(l_sql,1000,'Display cursor (last)','child number ([[:digit:]]*)',HTF.ANCHOR(curl=>'#child_all_\1',ctext=>'child number \1',cname=>'child_last_\1',cattributes=>'class="awr"'));
+   print_table_html(l_sql,1500,'Display cursor (last)','child number ([[:digit:]]*)',HTF.ANCHOR(curl=>'#child_all_\1',ctext=>'child number \1',cname=>'child_last_\1',cattributes=>'class="awr"'));
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
@@ -215,7 +215,7 @@ begin
    p(HTF.header (3,cheader=>HTF.ANCHOR (curl=>'',ctext=>'Display cursor (RAC)',cname=>'dp_rac',cattributes=>'class="awr"'),cattributes=>'class="awr"'));
    p(HTF.BR);
    prepare_script(l_rac_plans,'~SQLID');
-   print_table_html(l_rac_plans,1000,'Display cursor (RAC)');
+   print_table_html(l_rac_plans,1500,'Display cursor (RAC)');
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
@@ -227,7 +227,7 @@ begin
    p(HTF.BR);
    l_sql:=q'[select * from table(dbms_xplan.display_cursor('&SQLID', null, 'LAST ADVANCED'))]'||chr(10);
    prepare_script(l_sql,'~SQLID');
-   print_table_html(l_sql,1000,'Display cursor (LAST ADVANCED)');
+   print_table_html(l_sql,1500,'Display cursor (LAST ADVANCED)');
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
@@ -251,7 +251,7 @@ begin
    p(HTF.BR);
    l_sql:=q'[SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive LAST ALLSTATS +peeked_binds'))]'||chr(10);
    prepare_script(l_sql,'~SQLID');
-   print_table_html(l_sql,1000,'Display cursor (ADAPTIVE)');
+   print_table_html(l_sql,1500,'Display cursor (ADAPTIVE)');
    p(HTF.BR);   
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
