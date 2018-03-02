@@ -17,7 +17,16 @@ select rtrim(decode('&envr.', '', 'na_','&envr.'),'_') envr1 from dual;
 --========================================
 spool &envr2._&filename..html
 prompt Environment &envr2.
+
+set timing off
+set define ~
+
+set serveroutput on
 @_getplan_baseh
+/
+set serveroutput off
+set define &
+set timing on
 
 spool off
 

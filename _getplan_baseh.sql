@@ -239,7 +239,7 @@ begin
    p(HTF.BR);
    l_sql:=q'[select * from table(dbms_xplan.display_cursor('&SQLID', null, 'ALL ALLSTATS +peeked_binds'))]'||chr(10);
    prepare_script(l_sql,'~SQLID');
-   print_table_html(l_sql,1500,'Display cursor (ALL)','child number ([[:digit:]]*)',HTF.ANCHOR(curl=>'',ctext=>'child number \1',cname=>'child_all_\1',cattributes=>'class="awr"'));
+   print_table_html(l_sql,2000,'Display cursor (ALL)','child number ([[:digit:]]*)',HTF.ANCHOR(curl=>'',ctext=>'child number \1',cname=>'child_all_\1',cattributes=>'class="awr"'));
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
@@ -259,7 +259,7 @@ begin
    p(HTF.BR);
    l_sql:=q'[SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive ALL ALLSTATS +peeked_binds'))]'||chr(10);
    prepare_script(l_sql,'~SQLID');
-   print_table_html(l_sql,1500,'Display cursor (ADAPTIVE)');   
+   print_table_html(l_sql,2000,'Display cursor (ADAPTIVE)');   
    p(HTF.BR);
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont_plans',ctext=>'Back to Execution plans',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));

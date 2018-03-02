@@ -27,7 +27,7 @@ procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
                        when p_grouplen*2 then 's'
                        when p_grouplen*3 then 'ks'
                        when p_grouplen*4 then 'Ms'
-                       else '*'||p_base||'^'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )||' us'
+                       else '*'||p_base||'e'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )||' us'
                     end;
         else
             return
@@ -43,7 +43,7 @@ procedure p(msg varchar2) is begin dbms_output.put_line(msg);end;
                        when p_grouplen*4 then 'T'
                        when p_grouplen*5 then 'P'
                        when p_grouplen*6 then 'E'
-                       else '*'||p_base||'^'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )
+                       else '*'||p_base||'e'||to_char( trunc(log(p_base,abs(p_num)))-trunc(mod(log(p_base,abs(p_num)),p_grouplen)) )
                     end;
         end if;
     end; -- tptformat
