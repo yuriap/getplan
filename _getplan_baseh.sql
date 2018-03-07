@@ -64,6 +64,11 @@ q'[
 @@__sqlmon_hist
 ]';
 
+  l_ash_p3 clob := 
+q'[
+@@__ash_p3
+]';
+
 @@__procs.sql
    
 begin
@@ -95,6 +100,7 @@ begin
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#dp_all',ctext=>'Display cursor (ALL)',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#dp_adaptive',ctext=>'Display cursor (ADAPTIVE)',cattributes=>'class="awr"')));
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#sql_mon_hist',ctext=>'SQL Monitor report history',cattributes=>'class="awr"')));
+   p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#ash_p3',ctext=>'ASH summary',cattributes=>'class="awr"')));
    p(HTF.BR);
    p(HTF.BR); 
    
@@ -281,6 +287,25 @@ begin
    print_text_as_table(p_text=>l_plsql_output||chr(10),p_t_header=>'SQL Monitor report history',p_width=>600);
    p(HTF.BR);   
    p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
+   
+   --AWR ASH (SQL Monitor) P3
+   p(HTF.header (3,cheader=>HTF.ANCHOR (curl=>'',ctext=>'ASH summary',cname=>'ash_p3',cattributes=>'class="awr"'),cattributes=>'class="awr"'));
+   p(HTF.BR);
+   p('V$ASH totals by EXEC START DATE and PLAN STEP ID');
+   p(HTF.BR);
+   l_sql:=l_ash_p3;
+   prepare_script(l_sql,'~SQLID'); 
+   print_table_html(l_sql,1500,'ASH summary',
+                    p_style1 =>'awrncbbt',
+					p_style2 =>'awrcbbt',
+					--p_search=>'PLAN_HASH',
+					--p_replacement=>HTF.ANCHOR (curl=>'#awrplan_\1',ctext=>'\1',cattributes=>'class="awr"'),
+					p_header=>50,
+					p_break_col=>'SQL_EXEC_START');
+
+   p(HTF.BR);
+   p(HTF.LISTITEM(cattributes=>'class="awr"',ctext=>HTF.ANCHOR (curl=>'#tblofcont',ctext=>'Back to top',cattributes=>'class="awr"')));
+   p(HTF.BR);
    
    p(HTF.BR);
    p(HTF.BR);
