@@ -9,15 +9,7 @@ set verify off
 define SQLID=&1
 spool sqlid_&SQLID..html
 
-set timing off
-set define ~
-
-set serveroutput on
 @_getplan_baseh
-/
-set serveroutput off
-set define &
-set timing on
 
 spool off
 

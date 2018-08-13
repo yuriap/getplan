@@ -9,10 +9,7 @@ select prev_sql_id psqlid from v$session where sid=(select sid from v$mystat whe
 column fn NEW_V filename noprint
 select case when '&1.' is not null then '&1._sqlid_&SQLID..txt' else 'sqlid_&SQLID..txt' end fn from dual;
 
-column envr1 new_val envr2 noprint
-select rtrim(decode('&envr.', '', 'na_','&envr.'),'_') envr1 from dual;
-
-@_tmp_getsesstat.sql
+@_tmp_sesstat_&envr2._&1..sql
 
 set pages 9999
 set lines 500
