@@ -56,6 +56,8 @@ column end_tim format a24
 column obj format a40
 column tbs format a20
 
+@@__ash_p3_1
 @@__ash_p3
+
 set serveroutput off
 set timing on
