@@ -36,9 +36,14 @@ prompt ====================================== DISPLAY_CURSOR (Adaptive) ========
 SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive LAST ALLSTATS +peeked_binds'));
 SELECT * FROM TABLE(DBMS_XPLAN.display_cursor('&SQLID', null, format => 'adaptive ALL ALLSTATS +peeked_binds'));
 prompt ===================================== SQL MONITOR Hist(12c+) ====================================
+define start_sn=0
+define end_sn=0
 set serveroutput on
-@__sqlmon_hist
+@__sqlmon_hist &SQLID
 /
+
+undefine start_sn
+undefine end_sn
 
 prompt ===================================== Active ASH (SQL Monitor) ====================================
 BREAK ON plan_hash_value on SQL_EXEC_START skip 1 nodup on PL_OPERATION
