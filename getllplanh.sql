@@ -34,6 +34,10 @@ spool off
 @_recurs_sql getplan
 --========================================
 
+spool sqlid_&SQLID._active.html
+@__sqlmon_active &SQLID.
+spool off
+
 undefine SQLID
 undefine 1
 set termout on

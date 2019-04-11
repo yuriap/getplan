@@ -8,10 +8,11 @@ Version 2.0 - HTML reports for getplan and getllplan with "h" suffix
 Version 2.1 - Refactoring
 Version 2.2 - Bug fixing
 
-1. ep.sql
-Explains plan for some query in a file:
+1. ep.sql|epi.sql
+Explains plan for some query in a file, i-version produces two plans, one is as usual and another with invisible indexes made visible for session:
 
 @ep <filename>[.sql]
+@epi <filename>[.sql]
 
 2. geteplan.sql
 Renders an execution plan from plan_table (use after explain plan for statement)
@@ -23,10 +24,12 @@ Renders an execution plan with ADVANCED option from plan_table (use after explai
 
 @geteeplan
 
-4. ex.sql
+4. ex.sql|exi.sql
 Executes a query from a file and gathers sql runtime statistics. pars.sql can be used for bind variables (called automatically)
+i-version makes invisible indexes visible for the duration of the query execution
 
 @ex <filename>[.sql]
+@exi <filename>[.sql]
 
 5. ex1.sql
 Executes a query from a file and gathers sql runtime statistics. pars.sql can be used for bind variables (called automatically). The difference from the previous is that it creates a table to store the query result.
