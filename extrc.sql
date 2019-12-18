@@ -12,6 +12,7 @@ set termout off
 set timing on
 TIMING START SQL_TIMER
 
+
 @&1
 
 set termout on

@@ -13,9 +13,9 @@ spool sqlid_&SQLID..html
 
 spool off
 
-spool sqlid_&SQLID._active.html
-@__sqlmon_active &SQLID.
-spool off
+rem spool sqlid_&SQLID._active.html
+rem @__sqlmon_active &SQLID.
+rem spool off
 
 @_recurs_sql getplanh
 

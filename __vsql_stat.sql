@@ -76,7 +76,7 @@ begin
     p('CPU Time, Elapsed Time: '||tptformat(i.cpu_time,'TIME')||'; '||tptformat(i.elapsed_time,'TIME'));
     p('PIO, LIO, Direct WR: '||tptformat(i.disk_reads)||'; '||tptformat(i.buffer_gets)||'; '||tptformat(i.DIRECT_WRITES));
 	p('WAIT: APP, CONCURR, CLUSTER, USER_IO, PL/SQL, JAVA: '||tptformat(i.application_wait_time,'TIME')||'; '||tptformat(i.concurrency_wait_time,'TIME')||'; '||tptformat(i.cluster_wait_time,'TIME')||'; '||tptformat(i.user_io_wait_time,'TIME')||'; '||tptformat(i.PLSQL_EXEC_TIME,'TIME')||'; '||tptformat(i.JAVA_EXEC_TIME,'TIME'));
-	if i.disk_reads>0 then p('Awg IO time: '||tptformat(i.user_io_wait_time/i.disk_reads,'TIME'));end if;
+	if i.disk_reads>0 then p('Avg IO time: '||tptformat(i.user_io_wait_time/i.disk_reads,'TIME'));end if;
 	if i.buffer_gets>0 then p('CPU sec/1M LIO: '||tptformat(i.cpu_time/i.buffer_gets));end if;
     p('=================================================================================================');    
     if i.executions>0 then 
