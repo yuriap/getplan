@@ -12,7 +12,7 @@ begin
     l_eof:=instr(l_text,chr(10));
 	p(rtrim(rtrim(substr(l_text,1,l_eof),chr(13)),chr(10)));
     l_text:=substr(l_text,l_eof+1);  l_iter:=l_iter+1;
-    exit when l_iter>1000 or dbms_lob.getlength(l_text)=0;
+    exit when l_iter>100000 or dbms_lob.getlength(l_text)=0;
   end loop;
 end;
 begin
