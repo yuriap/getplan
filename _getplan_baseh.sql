@@ -77,6 +77,10 @@ q'[
 @@__procs.sql
    
 begin
+$IF DBMS_DB_VERSION.VERSION>19
+$THEN
+htf.set_html_escaping_mode('N');
+$END
    p(HTF.HTMLOPEN);
    p(HTF.HEADOPEN);
    p(HTF.TITLE('~SQLID'));   

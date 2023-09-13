@@ -8,11 +8,11 @@ set feedback off
 
 set verify off
 define SQLID=&1
-
+define fnpref=sql_perf_data_
 set trimspool on
 set termout off
 
-spool sql_perf_data_&SQLID..html
+spool &fnpref.&SQLID..html
 
 
 set timing off
@@ -45,10 +45,10 @@ declare
   l_sect_vashesum     boolean := true;
   l_sect_plsql_v      boolean := true;
   l_sect_plsql        boolean := false;
-  l_sect_ash_summ     boolean := true;
-  l_sect_ash_p1       boolean := true;
-  l_sect_ash_p2       boolean := true;
-  l_sect_ash_p3       boolean := true;
+  l_sect_ash_summ     boolean := false;
+  l_sect_ash_p1       boolean := false;
+  l_sect_ash_p2       boolean := false;
+  l_sect_ash_p3       boolean := false;
    
   l_time number;
   l_cpu_tim number;
@@ -1744,8 +1744,8 @@ set feedback off
 
 spool _tmp_vsql_rec_sql_&SQLID..sql
 select 'host mkdir sqlid_&SQLID._recursive_sqls'||chr(10)||'@&selfscriptname. ' ||sql_id||chr(10)||'set termout off'||chr(10)||
-       'host move sql_data_*'||sql_id||'.html .\sqlid_&SQLID._recursive_sqls'||chr(10)||
-	   'host mv sql_data_*'||sql_id||'.html .\sqlid_&SQLID._recursive_sqls'
+       'host move &fnpref.'||sql_id||'.html .\sqlid_&SQLID._recursive_sqls'||chr(10)||
+	   'host mv &fnpref.'||sql_id||'.html .\sqlid_&SQLID._recursive_sqls'
   from (select sql_id, count(1) cnt
           from v$active_session_history
          where top_level_sql_id = '&SQLID'

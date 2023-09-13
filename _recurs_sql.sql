@@ -10,7 +10,7 @@ set timing off
 set feedback off
 
 spool _tmp_vsql_rec_sql_&SQLID..sql
-select 'host mkdir sqlid_&SQLID._recursive_sqls'||chr(10)||'@&1. ' ||sql_id||chr(10)||'host move sqlid_'||sql_id||'.'||case when '&1.'='getplanh' then 'html' else 'txt' end||' .\sqlid_&SQLID._recursive_sqls'
+select 'host mkdir sqlid_&SQLID._recursive_sqls'||chr(10)||'@&1. ' ||sql_id||chr(10)||'set termout off'||chr(10)||'host move sqlid_'||sql_id||'*.'||case when '&1.'='getplanh' then 'html' else 'txt' end||' .\sqlid_&SQLID._recursive_sqls'
   from (select sql_id, count(1) cnt
           from v$active_session_history
          where top_level_sql_id = '&SQLID'
@@ -27,6 +27,7 @@ spool off
 @_tmp_vsql_rec_sql_&SQLID..sql
 
 host del _tmp_vsql_rec_sql_&SQLID..sql
+host rm _tmp_vsql_rec_sql_&SQLID..sql
 
 set heading on
 set verify on
